@@ -1,4 +1,5 @@
 import React from 'react';
+import { optImg } from "@/lib/img";
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
@@ -81,10 +82,10 @@ export default function About() {
       {/* Fixed hero image - same as homepage */}
       <div className="fixed inset-0 z-0 flex justify-center items-start overflow-hidden -mt-[108px]">
         <img
-          src={settings?.hero_image_url || ""}
+          src={optImg(settings?.hero_image_url, 1600, 85)}
           alt=""
           className="min-h-[125%] w-auto max-w-none"
-            style={{ filter: 'contrast(1.02) saturate(1.05)', imageRendering: 'crisp-edges' }}
+            style={{ filter: 'contrast(1.02) saturate(1.05)' }}
         />
       </div>
       

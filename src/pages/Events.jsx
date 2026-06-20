@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { optImg } from "@/lib/img";
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +19,7 @@ function EventPhoto({ photo, onClick, maxHeight }) {
       onClick={onClick}
     >
       <img
-        src={photo.url}
+        src={optImg(photo.url, 900)}
         alt=""
         className={`w-full h-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ objectPosition: photo.focal || "center" }}
@@ -115,7 +116,7 @@ function PastGalleryMarquee({ images, onImageClick }) {
               onClick={() => onImageClick(idx % images.length)}
             >
               <img 
-                src={image.url} 
+                src={optImg(image.url, 500)} 
                 alt="" 
                 className="h-36 w-auto object-cover"
               />
@@ -414,7 +415,7 @@ export default function Events() {
               key={lightboxIndex}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              src={lightboxImages[lightboxIndex]}
+              src={optImg(lightboxImages[lightboxIndex], 1600, 85)}
               alt=""
               className="max-h-[85vh] max-w-[90vw] object-contain"
               onClick={(e) => e.stopPropagation()}

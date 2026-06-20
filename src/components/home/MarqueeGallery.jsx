@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { optImg } from "@/lib/img";
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -17,7 +18,7 @@ function GalleryImage({ image, index, onClick }) {
       style={{ aspectRatio }}
     >
       <img
-        src={image.url}
+        src={optImg(image.url, 700)}
         alt={image.alt || `Gallery ${index + 1}`}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         loading={index < 6 ? "eager" : "lazy"}
@@ -92,7 +93,7 @@ export default function MarqueeGallery({ images = [] }) {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
-                                src={visibleImages[selectedIndex]?.url}
+                                src={optImg(visibleImages[selectedIndex]?.url, 1600, 85)}
                                 alt={visibleImages[selectedIndex]?.alt}
               className="max-h-[85vh] max-w-[90vw] object-contain"
               onClick={(e) => e.stopPropagation()}

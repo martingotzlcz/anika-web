@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { optImg } from "@/lib/img";
 import { motion } from 'framer-motion';
 
 export default function HeroSection({ artistName = "Anika", artistSurname = "Menclová", subtitle = "HEREČKA & ZPĚVAČKA", heroImage }) {
@@ -14,8 +15,8 @@ export default function HeroSection({ artistName = "Anika", artistSurname = "Men
     <section className={`relative h-screen overflow-hidden ${heroImage ? 'bg-[#fafafa]' : 'bg-gradient-to-b from-[#1e3a5f] to-[#16294a]'}`}>
       {heroImage && (
         <div className="absolute inset-0 flex justify-center items-start overflow-hidden -mt-[108px]">
-          <img src={heroImage} alt={artistName} className="min-h-[125%] w-auto max-w-none"
-               style={{ filter: 'contrast(1.02) saturate(1.05)', imageRendering: 'crisp-edges' }} fetchpriority="high" />
+          <img src={optImg(heroImage, 1600, 85)} alt={artistName} className="min-h-[125%] w-auto max-w-none"
+               style={{ filter: 'contrast(1.02) saturate(1.05)' }} fetchpriority="high" />
         </div>
       )}
       <div className="relative z-10 h-full flex items-center transition-opacity duration-100" style={{ opacity: textOpacity }}>

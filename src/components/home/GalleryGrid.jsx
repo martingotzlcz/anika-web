@@ -1,4 +1,5 @@
 import React from 'react';
+import { optImg } from "@/lib/img";
 import { motion } from 'framer-motion';
 
 const defaultImages = [
@@ -22,7 +23,7 @@ export default function GalleryGrid({ images = defaultImages }) {
           >
             <div className="aspect-[2/3] overflow-hidden">
               <img
-                src={images[0]?.url || defaultImages[0].url}
+                src={optImg(images[0]?.url || defaultImages[0].url, 800)}
                 alt={images[0]?.alt || "Portrait"}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -39,7 +40,7 @@ export default function GalleryGrid({ images = defaultImages }) {
           >
             <div className="aspect-[3/2] overflow-hidden">
               <img
-                src={images[1]?.url || defaultImages[1].url}
+                src={optImg(images[1]?.url || defaultImages[1].url, 800)}
                 alt={images[1]?.alt || "Performance"}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -56,7 +57,7 @@ export default function GalleryGrid({ images = defaultImages }) {
           >
             <div className="aspect-[3/2] overflow-hidden">
               <img
-                src={images[2]?.url || defaultImages[2].url}
+                src={optImg(images[2]?.url || defaultImages[2].url, 800)}
                 alt={images[2]?.alt || "Stage"}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
