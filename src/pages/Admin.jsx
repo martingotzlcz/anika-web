@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Image, Calendar, Music, User, Mail, BarChart2, LogOut } from 'lucide-react';
+import { Image, Calendar, Music, User, BarChart2, LogOut } from 'lucide-react';
 import GalleryAdminPanel from '@/components/admin/GalleryAdminPanel';
 import EventsAdminPanel from '@/components/admin/EventsAdminPanel';
 import MusicAdminPanel from '@/components/admin/MusicAdminPanel';
 import AboutAdminPanel from '@/components/admin/AboutAdminPanel';
-import ContactMessagesPanel from '@/components/admin/ContactMessagesPanel';
 import AnalyticsPanel from '@/components/admin/AnalyticsPanel';
 
 export default function Admin() {
@@ -23,13 +21,6 @@ export default function Admin() {
   useEffect(() => {
     base44.auth.me().then(() => { setIsAdmin(true); setLoading(false); }).catch(() => setLoading(false));
   }, []);
-
-  const { data: unreadMessages = [] } = useQuery({
-    queryKey: ['contactMessages'],
-    queryFn: () => base44.entities.ContactMessage.list('-created_date'),
-    enabled: isAdmin,
-    select: (msgs) => msgs.filter(m => !m.read && !m.archived),
-  });
 
   const handleLogin = async (e) => {
     e.preventDefault(); setErr(''); setSubmitting(true);
@@ -65,21 +56,17 @@ export default function Admin() {
           <Button variant="outline" onClick={() => base44.auth.logout()} className="gap-2"><LogOut className="w-4 h-4" />Odhlásit</Button>
         </div>
         <Tabs defaultValue="gallery" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-8">
+          <TabsList className="grid w-full grid-cols-5 mb-8">
             <TabsTrigger value="gallery" className="gap-2"><Image className="w-4 h-4" />Galerie</TabsTrigger>
             <TabsTrigger value="events" className="gap-2"><Calendar className="w-4 h-4" />Termíny</TabsTrigger>
             <TabsTrigger value="music" className="gap-2"><Music className="w-4 h-4" />Hudba</TabsTrigger>
             <TabsTrigger value="about" className="gap-2"><User className="w-4 h-4" />O mně</TabsTrigger>
-            <TabsTrigger value="messages" className="gap-2 relative"><Mail className="w-4 h-4" />Zprávy
-              {unreadMessages.length > 0 && (<span className="absolute -top-1 -right-1 bg-[#c94a4a] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">{unreadMessages.length > 9 ? '9+' : unreadMessages.length}</span>)}
-            </TabsTrigger>
             <TabsTrigger value="analytics" className="gap-2"><BarChart2 className="w-4 h-4" />Analýzy</TabsTrigger>
           </TabsList>
           <TabsContent value="gallery"><GalleryAdminPanel /></TabsContent>
           <TabsContent value="events"><EventsAdminPanel /></TabsContent>
           <TabsContent value="music"><MusicAdminPanel /></TabsContent>
           <TabsContent value="about"><AboutAdminPanel /></TabsContent>
-          <TabsContent value="messages"><ContactMessagesPanel /></TabsContent>
           <TabsContent value="analytics"><AnalyticsPanel /></TabsContent>
         </Tabs>
       </div>
