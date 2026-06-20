@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { tooBig } from "@/lib/img";
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -104,6 +105,7 @@ export default function EventsAdminPanel() {
 
   const handleImageUpload = async (e, field) => {
     const file = e.target.files[0];
+    if (file && tooBig(file)) return;
     if (!file) return;
     
     setUploading(true);

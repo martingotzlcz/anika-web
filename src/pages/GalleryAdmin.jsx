@@ -146,12 +146,7 @@ export default function GalleryAdmin() {
             Správa galerie
           </h1>
           <div className="flex gap-2">
-                          {images.some(img => !img.width || !img.height) && (
-                            <Button onClick={handleUpdateAllDimensions} variant="outline" className="gap-2" disabled={updatingDimensions}>
-                              <Ruler className={`w-4 h-4 ${updatingDimensions ? 'animate-pulse' : ''}`} />
-                              {updatingDimensions ? 'Aktualizuji...' : 'Načíst rozměry'}
-                            </Button>
-                          )}
+                          
                           {images.some(img => !img.thumbnail_url) && (
                             <Button onClick={handleCompressAll} variant="outline" className="gap-2" disabled={compressingAll}>
                               <RefreshCw className={`w-4 h-4 ${compressingAll ? 'animate-spin' : ''}`} />

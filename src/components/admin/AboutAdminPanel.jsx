@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { tooBig } from "@/lib/img";
 import { base44 } from '@/api/base44Client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -81,7 +82,7 @@ export default function AboutAdminPanel() {
     }
   }, [settings]);
 
-  const handleHeroUpload = async (e) => { const file = e.target.files[0]; if (!file) return; setUploadingHero(true); try { const { file_url } = await base44.integrations.Core.UploadFile({ file }); if (settings) { await base44.entities.SiteSettings.update(settings.id, { hero_image_url: file_url }); } else { await base44.entities.SiteSettings.create({ artist_name: "Anika Menclová", bio_text: bioText, hero_image_url: file_url }); } queryClient.invalidateQueries({ queryKey: ["siteSettings"] }); } catch (err) { alert("Nahrání fotky selhalo: " + (err?.message || err)); } setUploadingHero(false); };
+  const handleHeroUpload = async (e) => { const file = e.target.files[0]; if (!file) return; if (tooBig(file)) { setUploadingHero(false); return; } setUploadingHero(true); try { const { file_url } = await base44.integrations.Core.UploadFile({ file }); if (settings) { await base44.entities.SiteSettings.update(settings.id, { hero_image_url: file_url }); } else { await base44.entities.SiteSettings.create({ artist_name: "Anika Menclová", bio_text: bioText, hero_image_url: file_url }); } queryClient.invalidateQueries({ queryKey: ["siteSettings"] }); } catch (err) { alert("Nahrání fotky selhalo: " + (err?.message || err)); } setUploadingHero(false); };
 
   const handleSave = async () => {
     setSaving(true);

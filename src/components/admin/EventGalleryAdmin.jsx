@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { tooBig } from "@/lib/img";
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -38,6 +39,7 @@ export default function EventGalleryAdmin() {
     const existingCount = type === 'current' ? currentImages.length : pastImages.length;
     
     for (let i = 0; i < files.length; i++) {
+      if (tooBig(files[i])) continue;
       const { file_url } = await base44.integrations.Core.UploadFile({ file: files[i] });
       await base44.entities.EventGallery.create({
         type,

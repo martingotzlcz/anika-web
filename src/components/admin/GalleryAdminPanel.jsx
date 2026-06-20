@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { tooBig } from "@/lib/img";
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -43,6 +44,7 @@ export default function GalleryAdminPanel() {
     setUploading(true);
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+      if (tooBig(file)) continue;
       const { file_url } = await base44.integrations.Core.UploadFile({ file });
       await base44.entities.GalleryImage.create({
         url: file_url,
@@ -98,12 +100,7 @@ export default function GalleryAdminPanel() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-medium text-[#1e3a5f]">Správa galerie</h2>
         <div className="flex gap-2">
-          {images.some(img => !img.width || !img.height) && (
-            <Button onClick={handleUpdateAllDimensions} variant="outline" size="sm" className="gap-2" disabled={updatingDimensions}>
-              <Ruler className={`w-4 h-4 ${updatingDimensions ? 'animate-pulse' : ''}`} />
-              {updatingDimensions ? 'Aktualizuji...' : 'Načíst rozměry'}
-            </Button>
-          )}
+          
           
         </div>
       </div>
