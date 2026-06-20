@@ -36,15 +36,6 @@ export default function Layout({ children, currentPageName }) {
                 {children}
               </main>
 
-              {isAdmin && (
-                <Link
-                  to={createPageUrl('Admin')}
-                  className="fixed right-6 bottom-6 z-50 bg-[#1e3a5f] text-white p-3 rounded-full shadow-lg hover:bg-[#2a4a6f] transition-colors"
-                  title="Administrace"
-                >
-                  <Settings className="w-5 h-5" />
-                </Link>
-              )}
           {currentPageName !== 'Home' && currentPageName !== 'About' && <Footer />}
                       <CookieConsent />
                 </div>
