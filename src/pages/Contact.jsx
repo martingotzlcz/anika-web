@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
-import { Mail, Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
 
 const TikTokIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -24,38 +24,44 @@ export default function Contact() {
 
   const email = settings?.email || 'kontakt@anikamenclova.cz';
   const socialLinks = [
-    { name: 'Instagram', icon: Instagram, url: settings?.instagram_url || 'https://www.instagram.com/anikamenclova' },
-    { name: 'Facebook', icon: Facebook, url: settings?.facebook_url || 'https://www.facebook.com/anikamenclova' },
-    { name: 'YouTube', icon: Youtube, url: settings?.youtube_url || 'https://www.youtube.com/@anikamenclova' },
-    { name: 'TikTok', icon: TikTokIcon, url: settings?.tiktok_url || 'https://www.tiktok.com/@anikamenclova' },
-    { name: 'LinkedIn', icon: Linkedin, url: settings?.linkedin_url || 'https://www.linkedin.com/in/anika-menclov%C3%A1-5a66b2234/' },
+    { name: 'Instagram', icon: Instagram, url: settings?.instagram_url || 'https://www.instagram.com/anikamenclova', color: 'hover:text-pink-500' },
+    { name: 'Facebook', icon: Facebook, url: settings?.facebook_url || 'https://www.facebook.com/anikamenclova', color: 'hover:text-blue-600' },
+    { name: 'YouTube', icon: Youtube, url: settings?.youtube_url || 'https://www.youtube.com/@anikamenclova', color: 'hover:text-red-500' },
+    { name: 'TikTok', icon: TikTokIcon, url: settings?.tiktok_url || 'https://www.tiktok.com/@anikamenclova', color: 'hover:text-gray-900' },
+    { name: 'LinkedIn', icon: Linkedin, url: settings?.linkedin_url || 'https://www.linkedin.com/in/anika-menclov%C3%A1-5a66b2234/', color: 'hover:text-blue-700' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#fafafa] flex items-center justify-center px-6 py-32">
-      <div className="max-w-3xl w-full text-center">
-        <motion.p {...fade(0)} className="text-[11px] tracking-[0.45em] uppercase text-[#c94a4a] mb-6">Spojme se</motion.p>
-        <motion.h1 {...fade(0.05)} className="text-5xl md:text-7xl text-[#1e3a5f] leading-[1.05]" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 300 }}>Kontakt</motion.h1>
-        <motion.div {...fade(0.1)} className="w-12 h-px bg-[#c94a4a]/60 mx-auto mt-8 mb-14" />
-
-        <motion.p {...fade(0.15)} className="text-gray-500 text-base md:text-lg mb-5 max-w-md mx-auto" style={{ fontFamily: "'Georgia', serif" }}>
-          Pro spolupráci, nabídky a dotazy mě neváhejte kontaktovat.
-        </motion.p>
-        <motion.a {...fade(0.2)} href={`mailto:${email}`}
-          className="inline-block text-2xl md:text-4xl text-[#1e3a5f] hover:text-[#c94a4a] transition-colors duration-300 border-b border-[#1e3a5f]/15 hover:border-[#c94a4a] pb-1"
-          style={{ fontFamily: "'Playfair Display', serif", fontWeight: 300 }}>{email}</motion.a>
-
-        <motion.div {...fade(0.3)} className="mt-20">
-          <p className="text-[11px] tracking-[0.35em] uppercase text-gray-400 mb-7">Sledujte mě</p>
-          <div className="flex gap-4 justify-center">
-            {socialLinks.map((social) => (
-              <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name}
-                className="w-12 h-12 rounded-full border border-[#1e3a5f]/15 flex items-center justify-center text-[#1e3a5f]/70 transition-all duration-300 hover:text-white hover:bg-[#1e3a5f] hover:border-[#1e3a5f] hover:-translate-y-1">
-                <social.icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 pt-32 pb-24 px-6">
+      <div className="max-w-2xl mx-auto">
+        {/* Hlavička – stejná jako ostatní stránky */}
+        <motion.div {...fade(0)} className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-light text-[#1e3a5f] tracking-wider">KONTAKT</h1>
+          <div className="w-16 h-0.5 bg-[#c94a4a] mx-auto mt-6" />
         </motion.div>
+
+        <div className="text-center space-y-12">
+          <motion.p {...fade(0.05)} className="text-gray-500 text-lg max-w-md mx-auto" style={{ fontFamily: "'Georgia', serif" }}>
+            Pro spolupráci, nabídky a dotazy mě neváhejte kontaktovat.
+          </motion.p>
+
+          <motion.div {...fade(0.1)}>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-gray-400 mb-3">Email</p>
+            <a href={`mailto:${email}`} className="text-2xl md:text-3xl font-light text-[#1e3a5f] hover:text-[#c94a4a] transition-colors duration-300">{email}</a>
+          </motion.div>
+
+          <motion.div {...fade(0.15)} className="pt-4">
+            <p className="text-[11px] tracking-[0.3em] uppercase text-gray-400 mb-6">Sledujte mě</p>
+            <div className="flex gap-4 justify-center">
+              {socialLinks.map((social) => (
+                <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name}
+                  className={`w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 transition-all duration-300 ${social.color} hover:shadow-lg hover:-translate-y-1`}>
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
