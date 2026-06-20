@@ -62,10 +62,7 @@ export default function Music() {
 
         <div className="space-y-16">
           {displaySongs.map((song, index) => (
-            <div
-              key={song.id}
-              className="space-y-6"
-            >
+            <motion.div key={song.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.7, delay: index * 0.05, ease: [0.22,1,0.36,1] }} className="space-y-6">
               <h2 className="text-3xl font-light text-[#1e3a5f] text-center tracking-wide">
                 {song.title}
               </h2>
@@ -92,7 +89,7 @@ export default function Music() {
               {index < displaySongs.length - 1 && (
                 <div className="w-full h-px bg-gray-200 mt-12" />
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 

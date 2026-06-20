@@ -1,4 +1,6 @@
 import './App.css'
+import { useEffect } from 'react'
+import Lenis from 'lenis'
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -67,6 +69,14 @@ const AuthenticatedApp = () => {
 
 
 function App() {
+  useEffect(() => {
+    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    let id;
+    const raf = (t) => { lenis.raf(t); id = requestAnimationFrame(raf); };
+    id = requestAnimationFrame(raf);
+    return () => { cancelAnimationFrame(id); lenis.destroy(); };
+  }, []);
+
 
   return (
     <AuthProvider>

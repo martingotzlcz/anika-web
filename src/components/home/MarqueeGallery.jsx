@@ -12,11 +12,7 @@ function GalleryImage({ image, index, onClick }) {
     : 3/4;
   
   return (
-    <div
-      onClick={onClick}
-      className="mb-3 break-inside-avoid group relative overflow-hidden rounded-lg cursor-pointer shadow-lg bg-[#1e3a5f]/20"
-     
-    >
+    <motion.div onClick={onClick} initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.65, delay: (index % 8) * 0.06, ease: [0.22,1,0.36,1] }} whileHover={{ y: -5 }} className="mb-3 break-inside-avoid group relative overflow-hidden rounded-lg cursor-pointer shadow-lg bg-[#1e3a5f]/20">
       <img
         src={optImg(image.url, 700)}
         alt={image.alt || `Gallery ${index + 1}`}
@@ -32,7 +28,7 @@ function GalleryImage({ image, index, onClick }) {
           </p>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
