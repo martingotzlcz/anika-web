@@ -106,4 +106,5 @@ const integrations = { Core: {
 
 const functions = { async invoke() { return { data: { success: true }, success: true }; } };
 
-export const base44 = { entities, auth, integrations, functions };
+const appLogs = { logUserInApp: async () => {}, logEvent: async () => {} };
+export const base44 = { entities, auth, integrations, functions, appLogs };
