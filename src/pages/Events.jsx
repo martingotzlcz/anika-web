@@ -150,7 +150,7 @@ export default function Events() {
   const currentGallery = galleryImages.filter(img => img.type === 'current' && img.visible !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
   const pastGallery = galleryImages.filter(img => img.type === 'past' && img.visible !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
 
-  const _dt = (e) => new Date(e.date + "T" + (/^\d{1,2}:\d{2}$/.test(e.time||"") ? e.time : "00:00"));
+  const _dt = (e) => { const m = String(e.time||"").match(/^(\d{1,2}):(\d{2})$/); const hm = m ? m[1].padStart(2,"0")+":"+m[2] : "00:00"; return new Date(e.date + "T" + hm + ":00"); };
   const upcomingEvents = events.filter(e => new Date(e.date) >= new Date(new Date().toDateString())).sort((a,b)=>_dt(a)-_dt(b));
   const pastEvents = events.filter(e => new Date(e.date) < new Date(new Date().toDateString())).sort((a,b)=>_dt(b)-_dt(a));
 

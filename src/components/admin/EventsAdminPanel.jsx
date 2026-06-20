@@ -133,7 +133,7 @@ export default function EventsAdminPanel() {
                 Přidat termín
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogContent data-lenis-prevent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{editingEvent ? 'Upravit termín' : 'Nový termín'}</DialogTitle>
               </DialogHeader>
@@ -160,6 +160,7 @@ export default function EventsAdminPanel() {
                   <div>
                     <label className="text-sm font-medium text-gray-700">Čas</label>
                     <Input
+                      type="time"
                       value={formData.time}
                       onChange={(e) => setFormData(prev => ({ ...prev, time: e.target.value }))}
                       placeholder="19:00"

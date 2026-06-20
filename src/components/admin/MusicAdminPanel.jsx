@@ -102,7 +102,7 @@ export default function MusicAdminPanel() {
               Přidat skladbu
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-lg">
+          <DialogContent data-lenis-prevent className="max-w-lg">
             <DialogHeader>
               <DialogTitle>{editingSong ? 'Upravit skladbu' : 'Nová skladba'}</DialogTitle>
             </DialogHeader>
