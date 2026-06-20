@@ -104,20 +104,13 @@ export default function EventGalleryAdmin() {
                         <div {...provided.dragHandleProps} className="text-gray-400 cursor-grab">
                           <GripVertical className="w-4 h-4" />
                         </div>
-                        <img src={image.url} alt="" className="w-16 h-16 object-cover rounded" />
+                        <div className="relative w-16 h-16 flex-shrink-0 cursor-crosshair" title="Klikni, kam fotku zaměřit" onClick={(ev) => { const r = ev.currentTarget.getBoundingClientRect(); const x = Math.round((ev.clientX - r.left) / r.width * 100); const y = Math.round((ev.clientY - r.top) / r.height * 100); updateMutation.mutate({ id: image.id, data: { focal: x + "% " + y + "%" } }); }}><img src={image.url} alt="" className="w-16 h-16 object-cover rounded pointer-events-none" style={{ objectPosition: image.focal || "center" }} />{image.focal && image.focal.indexOf("%") > -1 && <div className="absolute w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#c94a4a] ring-2 ring-white pointer-events-none" style={{ left: image.focal.split(" ")[0], top: image.focal.split(" ")[1] }} />}</div>
                         <Input
                           value={image.hover_text || ''}
                           onChange={(e) => updateMutation.mutate({ id: image.id, data: { hover_text: e.target.value } })}
                           placeholder="Text při najetí..."
                           className="flex-1 h-8 text-sm"
                         />
-                        <select value={image.focal || "center"} onChange={(e) => updateMutation.mutate({ id: image.id, data: { focal: e.target.value } })} className="h-8 text-xs border border-gray-200 rounded px-1 bg-white" title="Odkud se fotka zaměřuje">
-                          <option value="center">Střed</option>
-                          <option value="top">Hlava/horní</option>
-                          <option value="bottom">Dolní</option>
-                          <option value="left">Vlevo</option>
-                          <option value="right">Vpravo</option>
-                        </select>
                         <div className="flex items-center gap-1">
                           <Button
                             variant="ghost"
