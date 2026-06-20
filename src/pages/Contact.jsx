@@ -32,16 +32,16 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 pt-32 pb-24 px-6">
-      <div className="max-w-2xl mx-auto">
-        {/* Hlavička – stejná jako ostatní stránky */}
-        <motion.div {...fade(0)} className="text-center mb-16">
+    <div className="pt-24 pb-16 min-h-screen bg-white">
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Hlavička – stejná pozice i styl jako Hudba / Termíny / O mně */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-light text-[#1e3a5f] tracking-wider">KONTAKT</h1>
           <div className="w-16 h-0.5 bg-[#c94a4a] mx-auto mt-6" />
         </motion.div>
 
-        <div className="text-center space-y-12">
-          <motion.p {...fade(0.05)} className="text-gray-500 text-lg max-w-md mx-auto" style={{ fontFamily: "'Georgia', serif" }}>
+        <div className="max-w-2xl mx-auto text-center space-y-12">
+          <motion.p {...fade(0.05)} className="text-gray-500 text-lg" style={{ fontFamily: "'Georgia', serif" }}>
             Pro spolupráci, nabídky a dotazy mě neváhejte kontaktovat.
           </motion.p>
 

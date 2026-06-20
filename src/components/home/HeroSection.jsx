@@ -14,13 +14,15 @@ export default function HeroSection({ artistName = "Anika", artistSurname = "Men
   return (
     <section className="relative h-screen overflow-hidden bg-[#1e3a5f]">
       {heroImage && (
-        <img
-          src={optImg(heroImage, 2560, 90)}
-          alt={artistName}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center 22%', filter: 'contrast(1.02) saturate(1.05)' }}
-          fetchpriority="high"
-        />
+        <div className="absolute inset-0 z-0 flex justify-center items-start overflow-hidden -mt-[108px]">
+          <img
+            src={optImg(heroImage, 2560, 90)}
+            alt={artistName}
+            className="min-h-[125%] w-auto max-w-none"
+            style={{ filter: 'contrast(1.02) saturate(1.05)' }}
+            fetchpriority="high"
+          />
+        </div>
       )}
       <div className="relative z-10 h-full flex items-center transition-opacity duration-100" style={{ opacity: textOpacity }}>
         <div className="w-full max-w-7xl mx-auto px-8 md:px-16">
