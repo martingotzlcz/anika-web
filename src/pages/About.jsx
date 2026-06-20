@@ -82,7 +82,7 @@ export default function About() {
       {/* Fixed hero image - same as homepage */}
       <div className="fixed inset-0 z-0 flex justify-center items-start overflow-hidden -mt-[108px]">
         <img
-          src={optImg(settings?.hero_image_url, 1600, 85)}
+          src={optImg(settings?.hero_image_url, 2560, 90)}
           alt=""
           className="min-h-[125%] w-auto max-w-none"
             style={{ filter: 'contrast(1.02) saturate(1.05)' }}

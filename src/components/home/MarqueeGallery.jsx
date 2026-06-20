@@ -15,12 +15,12 @@ function GalleryImage({ image, index, onClick }) {
     <div
       onClick={onClick}
       className="mb-3 break-inside-avoid group relative overflow-hidden rounded-lg cursor-pointer shadow-lg bg-[#1e3a5f]/20"
-      style={{ aspectRatio }}
+     
     >
       <img
         src={optImg(image.url, 700)}
         alt={image.alt || `Gallery ${index + 1}`}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`w-full h-auto block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         loading={index < 6 ? "eager" : "lazy"}
         decoding="async"
         onLoad={() => setLoaded(true)}
