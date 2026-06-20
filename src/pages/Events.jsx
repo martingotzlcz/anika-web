@@ -23,7 +23,7 @@ function EventPhoto({ photo, onClick, maxHeight }) {
         alt=""
         className={`w-full h-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ objectPosition: photo.focal || "center" }}
-        onLoad={() => setLoaded(true)}
+        onLoad={() => setLoaded(true)} onError={(e) => { if (!e.target.dataset.fb) { e.target.dataset.fb = "1"; e.target.src = photo.url; } }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       {photo.hover_text && (
@@ -118,7 +118,7 @@ function PastGalleryMarquee({ images, onImageClick }) {
               <img 
                 src={optImg(image.url, 500)} 
                 alt="" 
-                className="h-36 w-auto object-cover"
+                className="h-36 w-auto object-cover" onError={(e) => { if (!e.target.dataset.fb) { e.target.dataset.fb = "1"; e.target.src = image.url; } }}
               />
             </div>
           ))}

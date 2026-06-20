@@ -23,7 +23,7 @@ function GalleryImage({ image, index, onClick }) {
         className={`w-full h-auto block transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         loading={index < 6 ? "eager" : "lazy"}
         decoding="async"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => setLoaded(true)} onError={(e) => { if (!e.target.dataset.fb) { e.target.dataset.fb = "1"; e.target.src = image.url; } }}
       />
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end justify-center">
         {image.hover_text && (
