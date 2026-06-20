@@ -14,7 +14,7 @@ export default function HeroSection({ artistName = "Anika", artistSurname = "Men
   return (
     <section className={`relative h-screen overflow-hidden ${heroImage ? 'bg-[#fafafa]' : 'bg-gradient-to-b from-[#1e3a5f] to-[#16294a]'}`}>
       {heroImage && (
-        <div className="absolute inset-0 flex justify-center items-start overflow-hidden -mt-[108px]">
+        <div className="absolute inset-0 flex justify-center items-start overflow-hidden -mt-[108px]" style={{ transform: `scale(${1 + scrollY / 4500}) translateY(${scrollY * 0.12}px)`, transition: "transform 0.1s linear" }}>
           <img src={optImg(heroImage, 2560, 90)} alt={artistName} className="min-h-[125%] w-auto max-w-none"
                style={{ filter: 'contrast(1.02) saturate(1.05)' }} fetchpriority="high" />
         </div>

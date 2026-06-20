@@ -135,6 +135,7 @@ export default function Events() {
 
   const [lightboxImages, setLightboxImages] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [showAllPast, setShowAllPast] = useState(false);
 
   const { data: events = [], isLoading } = useQuery({
     queryKey: ['events'],
@@ -365,7 +366,7 @@ export default function Events() {
                   Proběhlé akce
                 </h2>
                 <div className="grid md:grid-cols-2 gap-x-8 gap-y-1">
-                  {pastEvents.map((event, index) => (
+                  {pastEvents.slice(0, showAllPast ? pastEvents.length : 8).map((event, index) => (
                               <div
                                 key={event.id}
                                 className="flex items-center gap-3 py-2 text-gray-500 hover:text-[#1e3a5f] transition-colors duration-200 text-sm"
@@ -377,6 +378,7 @@ export default function Events() {
                       </div>
                       ))}
                 </div>
+                {pastEvents.length > 8 && (<div className="mt-6 text-center"><button onClick={() => setShowAllPast(!showAllPast)} className="text-[11px] tracking-[0.2em] uppercase text-[#1e3a5f]/60 hover:text-[#c94a4a] transition-colors duration-300 border border-gray-200 rounded-full px-5 py-2 hover:border-[#c94a4a]/40">{showAllPast ? "Zobrazit méně" : ("Zobrazit všech " + pastEvents.length + " termínů")}</button></div>)}
               </div>
             )}
 

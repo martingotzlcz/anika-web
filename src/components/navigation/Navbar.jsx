@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Menu, X, Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
@@ -28,10 +28,12 @@ const socialLinks = [
 
 export default function Navbar({ currentPage }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 40); window.addEventListener("scroll", onScroll, { passive: true }); return () => window.removeEventListener("scroll", onScroll); }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-500 ${scrolled ? "bg-white/90 shadow-md" : "bg-white/70 shadow-sm"}`}>
+      <div className={`max-w-7xl mx-auto px-6 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}>
         <div className="flex items-center justify-between">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center flex-1 gap-8">
