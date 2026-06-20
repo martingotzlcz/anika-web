@@ -21,6 +21,7 @@ function EventPhoto({ photo, onClick, maxHeight }) {
         src={photo.url}
         alt=""
         className={`w-full h-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ objectPosition: photo.focal || "center" }}
         onLoad={() => setLoaded(true)}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -63,7 +64,7 @@ function PastGalleryMarquee({ images, onImageClick }) {
   // Random start position
   useEffect(() => {
     if (allLoaded && marqueeRef.current) {
-      const randomOffset = Math.random() * 50;
+      const randomOffset = 0;
       marqueeRef.current.style.animationDelay = `-${randomOffset}s`;
     }
   }, [allLoaded]);
@@ -104,13 +105,13 @@ function PastGalleryMarquee({ images, onImageClick }) {
         {/* Actual marquee - shown after all images loaded */}
         <div 
           ref={marqueeRef}
-          className={`marquee-track flex gap-4 transition-opacity duration-700 ${allLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
+          className={`marquee-track flex transition-opacity duration-700 ${allLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
           style={{ width: 'max-content' }}
         >
           {[...images, ...images].map((image, idx) => (
             <div
               key={`${image.id}-${idx}`}
-              className="relative cursor-pointer overflow-hidden rounded-lg flex-shrink-0"
+              className="relative cursor-pointer overflow-hidden rounded-lg flex-shrink-0 mr-4"
               onClick={() => onImageClick(idx % images.length)}
             >
               <img 
@@ -147,8 +148,9 @@ export default function Events() {
   const currentGallery = galleryImages.filter(img => img.type === 'current' && img.visible !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
   const pastGallery = galleryImages.filter(img => img.type === 'past' && img.visible !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
 
-  const upcomingEvents = events.filter(e => new Date(e.date) >= new Date()).reverse();
-  const pastEvents = events.filter(e => new Date(e.date) < new Date());
+  const _dt = (e) => new Date(e.date + "T" + (/^\d{1,2}:\d{2}$/.test(e.time||"") ? e.time : "00:00"));
+  const upcomingEvents = events.filter(e => new Date(e.date) >= new Date(new Date().toDateString())).sort((a,b)=>_dt(a)-_dt(b));
+  const pastEvents = events.filter(e => new Date(e.date) < new Date(new Date().toDateString())).sort((a,b)=>_dt(b)-_dt(a));
 
   const openLightbox = (images, index) => {
     setLightboxImages(images);
@@ -260,10 +262,10 @@ export default function Events() {
                                       {event.time}
                                     </span>
                                   )}
-                                  {event.venue && (
+                                  {(event.venue || event.city) && (
                                     <span className="flex items-center gap-0.5">
                                       <MapPin className="w-2.5 h-2.5" />
-                                      {event.venue}
+                                      {[event.venue, event.city].filter(Boolean).join(", ")}
                                     </span>
                                   )}
                                 </div>
@@ -319,10 +321,10 @@ export default function Events() {
                                     {event.time}
                                   </span>
                                 )}
-                                {event.venue && (
+                                {(event.venue || event.city) && (
                                   <span className="flex items-center gap-0.5">
                                     <MapPin className="w-2.5 h-2.5" />
-                                    {event.venue}
+                                    {[event.venue, event.city].filter(Boolean).join(", ")}
                                   </span>
                                 )}
                               </div>

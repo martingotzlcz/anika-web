@@ -111,6 +111,13 @@ export default function EventGalleryAdmin() {
                           placeholder="Text při najetí..."
                           className="flex-1 h-8 text-sm"
                         />
+                        <select value={image.focal || "center"} onChange={(e) => updateMutation.mutate({ id: image.id, data: { focal: e.target.value } })} className="h-8 text-xs border border-gray-200 rounded px-1 bg-white" title="Odkud se fotka zaměřuje">
+                          <option value="center">Střed</option>
+                          <option value="top">Hlava/horní</option>
+                          <option value="bottom">Dolní</option>
+                          <option value="left">Vlevo</option>
+                          <option value="right">Vpravo</option>
+                        </select>
                         <div className="flex items-center gap-1">
                           <Button
                             variant="ghost"
