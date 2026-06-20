@@ -81,7 +81,7 @@ export default function About() {
       {/* Fixed hero image - same as homepage */}
       <div className="fixed inset-0 z-0 flex justify-center items-start overflow-hidden -mt-[108px]">
         <img
-          src={settings?.hero_image_url || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/692e0644bcf270d41b6ac2db/ac26ddeb3_retus2_5.png"}
+          src={settings?.hero_image_url || ""}
           alt=""
           className="min-h-[125%] w-auto max-w-none"
             style={{ filter: 'contrast(1.02) saturate(1.05)', imageRendering: 'crisp-edges' }}

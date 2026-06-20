@@ -64,6 +64,7 @@ export default function AboutAdminPanel() {
   const [bioText, setBioText] = useState(DEFAULT_BIO);
   const [saving, setSaving] = useState(false);
   const editorRef = useRef(null);
+  const [uploadingHero, setUploadingHero] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: settings, isLoading } = useQuery({
@@ -79,6 +80,8 @@ export default function AboutAdminPanel() {
       setBioText(settings.bio_text);
     }
   }, [settings]);
+
+  const handleHeroUpload = async (e) => { const file = e.target.files[0]; if (!file) return; setUploadingHero(true); try { const { file_url } = await base44.integrations.Core.UploadFile({ file }); if (settings) { await base44.entities.SiteSettings.update(settings.id, { hero_image_url: file_url }); } else { await base44.entities.SiteSettings.create({ artist_name: "Anika Menclová", bio_text: bioText, hero_image_url: file_url }); } queryClient.invalidateQueries({ queryKey: ["siteSettings"] }); } catch (err) { alert("Nahrání fotky selhalo: " + (err?.message || err)); } setUploadingHero(false); };
 
   const handleSave = async () => {
     setSaving(true);
@@ -129,6 +132,13 @@ export default function AboutAdminPanel() {
 
   return (
     <div className="space-y-6">
+      <Card className="p-4">
+        <h3 className="text-sm font-medium text-[#1e3a5f] mb-3">Hlavní fotka (Domů + O mně)</h3>
+        <div className="flex items-center gap-4">
+          {settings?.hero_image_url ? (<img src={settings.hero_image_url} alt="" className="w-20 h-20 object-cover rounded-lg ring-1 ring-gray-200" />) : (<div className="w-20 h-20 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 text-[10px]">bez fotky</div>)}
+          <label className="inline-flex items-center gap-2 px-3 py-2 text-sm bg-[#1e3a5f] text-white rounded-md cursor-pointer hover:bg-[#2a4a6f]">{uploadingHero ? "Nahrávám…" : "Nahrát hlavní fotku"}<input type="file" accept="image/*" onChange={handleHeroUpload} className="hidden" disabled={uploadingHero} /></label>
+        </div>
+      </Card>
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-medium text-[#1e3a5f]">Správa stránky O mně</h2>
         <Button 
