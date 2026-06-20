@@ -38,9 +38,6 @@ export default function Contact() {
         <div className="flex flex-col items-center text-center space-y-8">
           <div>
             <h2 className="text-2xl font-light text-[#1e3a5f] mb-4">Pojďme spolupracovat</h2>
-            <p className="text-gray-600 leading-relaxed max-w-md mx-auto">
-              Máte zájem o spolupráci nebo dotaz?<br />Ozvěte se mi e-mailem nebo na sociálních sítích.
-            </p>
           </div>
 
           <div className="flex items-center gap-4">
