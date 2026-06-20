@@ -364,7 +364,7 @@ export default function Events() {
                   Proběhlé akce
                 </h2>
                 <div className="grid md:grid-cols-2 gap-x-8 gap-y-1">
-                  {pastEvents.slice(0, 12).map((event, index) => (
+                  {pastEvents.map((event, index) => (
                               <div
                                 key={event.id}
                                 className="flex items-center gap-3 py-2 text-gray-500 hover:text-[#1e3a5f] transition-colors duration-200 text-sm"
