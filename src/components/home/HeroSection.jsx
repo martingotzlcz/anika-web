@@ -12,7 +12,7 @@ export default function HeroSection({ artistName = "Anika", artistSurname = "Men
   const textOpacity = Math.max(0, 1 - scrollY / 300);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-[#1e3a5f]">
+    <section className="relative h-screen overflow-hidden bg-[#fafafa]">
       {heroImage && (
         <div className="absolute inset-0 z-0 flex justify-center items-start overflow-hidden -mt-[108px]">
           <img
